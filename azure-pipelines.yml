@@ -1,36 +1,33 @@
 trigger:
-- main
+-main
 
 pool:
   vmImage: ubuntu-latest
 
 stages:
-
-- stage: Build
+-stage: Build
 displayName: Build Docker Image
 jobs:
-- job: BuildJob
+-job: BuildJob
 steps:
-- script: |
+-script: |
   echo "Building Docker image..."
-  docker build -t "capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId)" .
+  docker build -t capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId) .
   echo "Build done!"
 displayName: Build image,
-
-
 
 - stage: Push
 displayName: Push to ACR
 dependsOn: Build
- jobs:
+jobs:
 - job: PushJob
 steps:
 - script: |
   echo "Logging into ACR..."
   docker login capstoneacr12345.azurecr.io -u $(ACR_USERNAME) -p $(ACR_PASSWORD)
   echo "Building and pushing..."
-  docker build -t "capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId)" .
-  docker push "capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId)"
+  docker build -t capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId) .
+  docker push capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId)
   echo "Push complete!"
 displayName: Push image to ACR,
 
@@ -45,9 +42,9 @@ steps:
 - task: AzureCLI@2
 displayName: Deploy to Kubernetes
 inputs:
-  azureSubscription: azure-connection
-  scriptType: bash
-  scriptLocation: inlineScript
+  azureSubscription: 'azure-connection'
+  scriptType: 'bash'
+  scriptLocation: 'inlineScript'
   inlineScript: |
     echo "Getting AKS credentials..."
     az aks get-credentials --resource-group capstone-rg --name capstone-aks --overwrite-existing
