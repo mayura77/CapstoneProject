@@ -7,8 +7,8 @@ pool:
 stages:
 
 - stage: Build
-  displayName: Build Docker Image
-  jobs:
+                            displayName: Build Docker Image
+                              jobs:  
   - job: BuildJob
     steps:
     - script: |
@@ -41,7 +41,7 @@ stages:
     - task: AzureCLI@2
       displayName: Deploy to Kubernetes
       inputs:
-        azureSubscription: github.com_mayura77
+        azureSubscription: azure-connection
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
