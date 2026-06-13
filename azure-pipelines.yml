@@ -13,6 +13,8 @@ stages:
         docker build -t "capstoneacr12345.azurecr.io/capstone-app:$(Build.BuildId)" .
         echo "Build done!"
       displayName: Build image
+- script: node --check app.js && echo "app check passed"
+    displayName: check app syntax     
 - stage: Push
   displayName: Push to ACR
   dependsOn: Build
