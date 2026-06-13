@@ -22,7 +22,7 @@ stages:
 
     # added this after reading that pipelines should have a test step
     # node --check just verifies the app.js file has no syntax errors
-    - script: node --check app/app.js && echo "app check passed"
+    - script: node --check app.js && echo "app check passed"
       displayName: check app syntax
 
 - stage: Push
