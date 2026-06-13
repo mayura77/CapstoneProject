@@ -41,7 +41,7 @@ stages:
     - task: AzureCLI@2
       displayName: Deploy to Kubernetes
       inputs:
-        azureSubscription: azure-connection
+        azureSubscription: github.com_mayura77
         scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
